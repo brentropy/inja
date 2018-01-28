@@ -1,0 +1,26 @@
+{
+  "name": "inja",
+  "version": "1.0.0",
+  "description": "Simple dependency injection for node.js and the browser",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "tape": "^4.8.0"
+  },
+  "scripts": {
+    "test": "istanbul cover test.js",
+    "test:report": "npm test && cat ./coverage/lcov.info | coveralls"
+  },
+  "keywords": [
+    "ioc",
+    "di",
+    "dependency",
+    "injection",
+    "injector",
+    "service"
+  ],
+  "author": "Brent Burgoyne",
+  "license": "MIT"
+}
