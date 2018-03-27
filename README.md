@@ -62,6 +62,48 @@ const exampleProvider = {
 module.exports = exampleProvider
 ```
 
+### Interface Provider
+
+It is possible to supply a alternate implementation of a provider within your
+container. One case for this would be a service that can depend on any service
+that satisfies a given interface.
+
+#### Example:
+
+```js
+const inja = require('inja')
+const cacheInterface = require('./cache-interface')
+const redisProvider = require('./redis')
+
+const thingProvider = {
+  inject () {
+    return [cacheInterface]
+  },
+
+  init (cacheService) {
+    return { /* service instance */ }
+  }
+}
+
+const thingService = inja()
+  .implement(cacheInterface, redisProvider)
+  .make(thingProvider)
+```
+
+An interface provider may have no default implementation. In this case the init
+method should throw an `Error` to force consumers to implement the interface
+within the container.
+
+#### Example:
+
+```js
+const cacheInterface = {
+  init () {
+    throw new Error('Cache interface not implemented.')
+  }
+}
+```
+
 ### Service
 
 Services handle effects and access to internal or external state. A service is

@@ -2,9 +2,11 @@
 
 function init () {
   var singletons = new Map()
+  var overrides = new Map()
 
   function make (provider, transients) {
     transients = transients || new Map()
+    provider = overrides.get(provider) || provider
     var cache = provider.singleton ? singletons : transients
     var instance = cache.get(provider)
     var deps
@@ -18,6 +20,11 @@ function init () {
       cache.set(provider, instance)
     }
     return instance
+  }
+
+  function implement (original, override) {
+    overrides.set(original, override)
+    return container
   }
 
   function provide (value) {
@@ -36,9 +43,12 @@ function init () {
 
   provide.factory = factory
 
-  return {
-    make: make
+  var container = {
+    make: make,
+    implement: implement
   }
+
+  return container
 }
 
 module.exports = init

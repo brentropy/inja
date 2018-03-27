@@ -88,3 +88,9 @@ test('injects provided factory for provider', function (t) {
   t.ok(b.cf().c)
   t.end()
 })
+
+test('implements one provider with another', function (t) {
+  var b = inja().implement(providers.a, providers.b).make(providers.a)
+  t.ok(b.b)
+  t.end()
+})
