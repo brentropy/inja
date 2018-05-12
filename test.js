@@ -45,6 +45,16 @@ var providers = {
     }
   },
 
+  e: class {
+    static inject () {
+      return [providers.a]
+    }
+
+    constructor (a) {
+      this.a = a
+    }
+  },
+
   v: { v: true }
 }
 
@@ -92,5 +102,11 @@ test('injects provided factory for provider', function (t) {
 test('implements one provider with another', function (t) {
   var b = inja().implement(providers.a, providers.b).make(providers.a)
   t.ok(b.b)
+  t.end()
+})
+
+test('supports class providers', function (t) {
+  var e = inja().make(providers.e)
+  t.ok(e.a.a)
   t.end()
 })

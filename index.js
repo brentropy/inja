@@ -16,7 +16,11 @@ function init () {
           return make(dep, transients)
         })
       }
-      instance = provider.init.apply(provider, deps)
+      if (typeof provider === 'function') {
+        instance = new (provider.bind.apply(provider, [null].concat(deps)))
+      } else {
+        instance = provider.init.apply(provider, deps)
+      }
       cache.set(provider, instance)
     }
     return instance

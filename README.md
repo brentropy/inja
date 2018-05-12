@@ -62,6 +62,27 @@ const exampleProvider = {
 module.exports = exampleProvider
 ```
 
+### Class Provider
+
+Alternately a provider may be defined as a class. Instead of calling `init`, the
+service is created by calling the provider with the `new` keyword to construct
+an instance of the class. Dependencies are optionally defined in a static
+`inject` method on the class.
+
+#### Example
+
+```javascript
+class ExampleService {
+  static inject (provide) {
+    return [provide(process.env)]
+  }
+
+  constructor (env) {
+    this.env = env
+  }
+}
+```
+
 ### Interface Provider
 
 It is possible to supply a alternate implementation of a provider within your
