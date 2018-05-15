@@ -46,12 +46,14 @@ var providers = {
   },
 
   e: class {
-    static inject () {
-      return [providers.a]
+    static inject (provide) {
+      return [providers.a, providers.b, provide.make]
     }
 
-    constructor (a) {
+    constructor (a, b, make) {
       this.a = a
+      this.b1 = b
+      this.b2 = make(providers.b)
     }
   },
 
@@ -108,5 +110,11 @@ test('implements one provider with another', function (t) {
 test('supports class providers', function (t) {
   var e = inja().make(providers.e)
   t.ok(e.a.a)
+  t.end()
+})
+
+test('injects make function for container', function (t) {
+  var e = inja().make(providers.e)
+  t.equal(e.b1, e.b2)
   t.end()
 })

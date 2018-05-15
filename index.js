@@ -46,6 +46,7 @@ function init () {
   }
 
   provide.factory = factory
+  provide.make = provide(make)
 
   var container = {
     make: make,
