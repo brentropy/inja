@@ -6,12 +6,18 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.0.0",
+    "husky": "^0.14.3",
     "istanbul": "^0.4.5",
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1",
     "tape": "^4.8.0"
   },
   "scripts": {
     "test": "istanbul cover test.js",
-    "test:report": "npm test && cat ./coverage/lcov.info | coveralls"
+    "test:report": "npm test && cat ./coverage/lcov.info | coveralls",
+    "test:fmt": "prettier --list-different *.js",
+    "fmt": "prettier --write *.js",
+    "precommit": "pretty-quick --staged"
   },
   "keywords": [
     "ioc",
