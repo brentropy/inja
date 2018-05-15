@@ -64,3 +64,12 @@ test("injects make function for container", t => {
   t.equal(e.b1, e.b2);
   t.end();
 });
+
+test("two make calls can share a transient context", t => {
+  const container = inja();
+  const context = container.make.context();
+  const a1 = container.make(providers.a, context);
+  const a2 = container.make(providers.a, context);
+  t.equal(a1, a2);
+  t.end();
+});

@@ -1,11 +1,15 @@
 "use strict";
 
+function context() {
+  return new Map();
+}
+
 function init() {
-  var singletons = new Map();
+  var singletons = context();
   var overrides = new Map();
 
   function make(provider, transients) {
-    transients = transients || new Map();
+    transients = transients || context();
     provider = overrides.get(provider) || provider;
     var cache = provider.singleton ? singletons : transients;
     var instance = cache.get(provider);
@@ -45,6 +49,7 @@ function init() {
     });
   }
 
+  make.context = context;
   provide.factory = factory;
   provide.make = provide(make);
 
