@@ -44,8 +44,8 @@ function init() {
   }
 
   function factory(provider) {
-    return provide(function() {
-      return make(provider);
+    return provide(function(transients) {
+      return make(provider, transients);
     });
   }
 

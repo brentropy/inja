@@ -73,3 +73,12 @@ test("two make calls can share a transient context", t => {
   t.equal(a1, a2);
   t.end();
 });
+
+test("two factory calls can share a transient context", t => {
+  const container = inja();
+  const context = container.make.context();
+  const b = container.make(providers.b);
+  t.notEqual(b.cf(), b.cf());
+  t.equal(b.cf(context), b.cf(context));
+  t.end();
+});
