@@ -49,7 +49,7 @@ function init() {
     });
   }
 
-  make.context = context;
+  make.contextFactory = context;
   provide.factory = factory;
   provide.make = provide(make);
 

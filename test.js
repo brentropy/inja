@@ -67,7 +67,7 @@ test("injects make function for container", t => {
 
 test("two make calls can share a transient context", t => {
   const container = inja();
-  const context = container.make.context();
+  const context = container.make.contextFactory();
   const a1 = container.make(providers.a, context);
   const a2 = container.make(providers.a, context);
   t.equal(a1, a2);
@@ -76,7 +76,7 @@ test("two make calls can share a transient context", t => {
 
 test("two factory calls can share a transient context", t => {
   const container = inja();
-  const context = container.make.context();
+  const context = container.make.contextFactory();
   const b = container.make(providers.b);
   t.notEqual(b.cf(), b.cf());
   t.equal(b.cf(context), b.cf(context));
