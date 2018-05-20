@@ -82,3 +82,10 @@ test("two factory calls can share a transient context", t => {
   t.equal(b.cf(context), b.cf(context));
   t.end();
 });
+
+test("can inject current transient context", t => {
+  const container = inja();
+  const e = container.make(providers.e);
+  t.equal(e, container.make(providers.e, e.context));
+  t.end();
+});

@@ -16,7 +16,7 @@ function init() {
     var deps;
     if (!instance) {
       if (provider.inject) {
-        deps = provider.inject(provide).map(function(dep) {
+        deps = provider.inject(provide, transients).map(function(dep) {
           return make(dep, transients);
         });
       }

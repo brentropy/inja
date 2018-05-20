@@ -39,14 +39,15 @@ const providers = {
   },
 
   e: class {
-    static inject(provide) {
-      return [providers.a, providers.b, provide.make];
+    static inject(provide, context) {
+      return [providers.a, providers.b, provide.make, provide(context)];
     }
 
-    constructor(a, b, make) {
+    constructor(a, b, make, context) {
       this.a = a;
       this.b1 = b;
       this.b2 = make(providers.b);
+      this.context = context;
     }
   },
 
